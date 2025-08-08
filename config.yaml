@@ -1,0 +1,34 @@
+# --- Configuration File for KWS Project ---
+
+# 1. Audio Processing Parameters
+audio:
+  sample_rate: 16000
+  n_mfcc: 20          # Number of MFCC features to compute
+  n_fft: 512
+  hop_length: 160     # 10ms hop
+  win_length: 400     # 25ms window
+  # Fixed duration for audio clips in seconds for model input
+  clip_duration_s: 1.5 
+
+# 2. Model Architecture Parameters
+model:
+  # Input shape will be (batch, 1, n_mfcc, time_steps)
+  in_channels: 1
+  num_classes: 5 # start, stop, reset,lap, _background_noise_
+
+# 3. Training Parameters
+training:
+  dataset_path: "dataset_augmented/"
+  model_output_path: "trained_models/"
+  batch_size: 16
+  learning_rate: 0.001
+  num_epochs: 50
+  # Use a portion of the data for validation
+  validation_split: 0.1
+
+# 4. Real-time Detection Parameters
+detection:
+  # Probability threshold to trigger a detection
+  threshold: 0.95
+  # Cooldown in frames to prevent multiple triggers for one utterance
+  cooldown_frames: 50 # 500ms
